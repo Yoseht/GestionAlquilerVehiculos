@@ -1,0 +1,57 @@
+.padre{
+  display: flex;
+  text-align: center;
+  height: 80%;
+}
+.tamaño-imagen{
+  width: 500px;
+  height: 500px;
+  margin-top: 100px;
+}
+.estilo-profile{
+  border-radius: 50%;
+  height: 120px;
+  width: 120px;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.cajaTexto{
+  background-color: #cccccc40;
+  border-color: slategrey;
+  border-radius: 30px;
+  width: 100%;
+  padding: 15px;
+  border-width: 0px;
+  margin-bottom: 20px;
+}
+.cajaTexto:focus{
+  outline: 1px solid  cornflowerblue;
+  box-shadow: 0 0 10px cornflowerblue;
+}
+.btnform{
+  background-color: #0D6EFD;
+  border-color: slategrey;
+  border-radius: 30px;
+  width: 100%;
+  padding: 15px;
+  border-width: 0px;
+  margin-bottom: 20px;
+  color: white;
+}
+.texto{
+  font-size: 20px;
+  color: slategray;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 5px;
+}
+
+.btnswitch{
+  background-color: darkblue;
+  border-radius: 30px;
+  padding: 8px;
+  border-width: 0;
+  color: white;
+  font-size: 16px;
+
+}
