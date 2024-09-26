@@ -1,36 +1,44 @@
-import { useState } from 'react' 
-//importando los modulos de firebase
-import appFirebase from '../firebaseConfig'
-import {getAuth,onAuthStateChanged} from 'firebase/auth'
+import React, { useState, useEffect } from 'react';
+import appFirebase from '../firebaseConfig';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import Login from './components/login';
+import Home from './components/home';
+import Renta from './components/rent';
 
-
-const auth = getAuth(appFirebase)
-
-//importando los componentes
-import Login from './components/login'
-import Home from './components/home'
-
-import './App.css'
+const auth = getAuth(appFirebase);
 
 function App() {
- 
-  const [usuario, setUsuario] = useState(null)
+  const [usuario, setUsuario] = useState(null);
+  const [showRenta, setShowRenta] = useState(false);
 
-  onAuthStateChanged(auth, (usuarioFirebase)=>{
-    if(usuarioFirebase){
-      setUsuario(usuarioFirebase)
-  }else{
-    setUsuario(null)
-    }
-  })
-  return(
+  useEffect(() => {
+    const unsuscribe = onAuthStateChanged(auth, (usuarioFirebase) => {
+      if (usuarioFirebase) {
+        setUsuario(usuarioFirebase);
+      } else {
+        setUsuario(null);
+      }
+    });
+    return unsuscribe;
+  }, []);
+
+  const handleRentaClick = () => {
+    setShowRenta(true);
+  };
+
+  return (
     <div>
-      {usuario ? <Home correoUsuario = {usuario.email}/> : <Login/>}
+      {usuario ? (
+        showRenta ? (
+          <Renta />
+        ) : (
+          <Home correoUsuario={usuario.email} setShowRenta={handleRentaClick} />
+        )
+      ) : (
+        <Login />
+      )}
     </div>
-  )
+  );
 }
 
-export default App
-
-
-
+export default App;

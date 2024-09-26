@@ -1,20 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import appFirebase from "../../firebaseConfig";
+import appFirebase from '../../firebaseConfig';
 import { getAuth, signOut } from "firebase/auth";
+import VehicleCard from './VehicleCard';
 
 const auth = getAuth(appFirebase);
 
-const VehicleCard = ({ vehicles }) => {
-  return (
-    <div className="vehicle-card">
-      <h4>{vehicles.marca} {vehicles.model} ({vehicles.año})</h4>
-      <img src={vehicles.ImageUrl} alt={vehicles.model} className="estilo-Vehiculo" />
-      <button className="btn btn-primary">Rentar el vehiculo</button>
-    </div>
-  );
-};
-
-const Home = ({ correoUsuario }) => {
+const Home = ({ correoUsuario, setShowRenta }) => {
   const [vehiculos, setVehiculos] = useState([]);
 
   useEffect(() => {
@@ -39,6 +30,12 @@ const Home = ({ correoUsuario }) => {
         {vehiculos.map((vehiculo) => (
           <li key={vehiculo.id}>
             <VehicleCard vehicles={vehiculo} />
+            <button
+              className="btn btn-primary"
+              onClick={() => setShowRenta()}
+            >
+              Rentar el vehiculo
+            </button>
           </li>
         ))}
       </ul>
