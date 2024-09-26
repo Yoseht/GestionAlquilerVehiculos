@@ -18,6 +18,7 @@ const Home = ({ correoUsuario, setShowRenta }) => {
   }, []);
 
   return (
+    
     <div>
       <h2 className="text-center">
         Welcome user {correoUsuario}{" "}
