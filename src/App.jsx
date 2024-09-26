@@ -4,6 +4,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import Login from './components/login';
 import Home from './components/home';
 import Renta from './components/rent';
+import './App.css'
 
 const auth = getAuth(appFirebase);
 
