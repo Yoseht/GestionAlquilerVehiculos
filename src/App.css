@@ -3,9 +3,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Hace que ocupe toda la altura de la ventana */
-  background-color: #f8f9fa; /* Fondo gris claro */
-  padding-top: 50px; /* Espacio entre la barra de navegación y el formulario */
+  height: 100vh;
+  background-color: #f8f9fa;
+  padding-top: 50px;
 }
 
 .padre {
@@ -13,12 +13,100 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-color: #ffffff; /* Fondo blanco para el formulario */
+  background-color: #ffffff;
   border-radius: 20px;
   padding: 40px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
-  max-width: 400px; /* Ancho máximo del formulario */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
   width: 100%;
+}
+
+/* Estilos de la tarjeta de bienvenida */
+.welcome-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px auto;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+}
+
+.welcome-card h2 {
+  color: #333;
+  font-family: Arial, sans-serif;
+  margin-bottom: 10px;
+}
+
+.user-email {
+  color: #0d6efd;
+  font-weight: bold;
+}
+
+.logout-btn {
+  background-color: #0d6efd;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: #0b5ed7;
+}
+
+/* Estilos del contenedor del catálogo de vehículos */
+.catalogo-container {
+  background-color: #f0f8ff; /* Fondo de color suave */
+  padding: 30px;
+  border-radius: 10px;
+  margin: 20px auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.catalogo-title {
+  text-align: center;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Grid de vehículos */
+.vehicle-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+/* Estilos de cada tarjeta de vehículo */
+.vehicle-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+}
+
+.vehicle-card img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+.rent-btn {
+  background-color: #0d6efd;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.rent-btn:hover {
+  background-color: #0b5ed7;
 }
 
 /* Estilos de la imagen de perfil */
@@ -31,7 +119,6 @@
   margin-bottom: 20px;
 }
 
-/* Estilos de los campos de texto */
 .cajaTexto {
   background-color: #cccccc40;
   border-color: slategrey;
@@ -47,7 +134,6 @@
   box-shadow: 0 0 10px cornflowerblue;
 }
 
-/* Estilos del botón de formulario */
 .btnform {
   background-color: #0d6efd;
   border-color: slategrey;
@@ -61,10 +147,9 @@
 }
 
 .btnform:hover {
-  background-color: #0b5ed7; /* Cambia ligeramente el color en hover */
+  background-color: #0b5ed7;
 }
 
-/* Estilos del texto */
 .texto {
   font-size: 20px;
   color: slategray;
@@ -72,7 +157,6 @@
   margin-top: 5px;
 }
 
-/* Estilos del botón de alternancia */
 .btnswitch {
   background-color: #0b5ed7;
   border-radius: 30px;
@@ -84,26 +168,25 @@
 }
 
 .btnswitch:hover {
-  background-color: #083ba3; /* Cambia el color en hover */
+  background-color: #083ba3;
 }
 
-/* Estilos del header */
 .header {
-  width: 100%; /* Ocupa todo el ancho de la pantalla */
-  background-color: #000000; /* Fondo negro para la barra */
-  padding: 10px 20px; /* Espaciado interno */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
+  width: 100%;
+  background-color: #000000;
+  padding: 10px 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .container-header {
   display: flex;
-  justify-content: space-between; /* Espacio entre botones y sesión */
+  justify-content: space-between;
   align-items: center;
 }
 
 .nav-buttons {
   display: flex;
-  gap: 10px; /* Espacio entre los botones de navegación */
+  gap: 10px;
 }
 
 .header .btn {
@@ -121,7 +204,7 @@
 }
 
 .header .login-btn {
-  margin-left: auto; /* Empuja el botón de "Inicio de sesión" a la derecha */
+  margin-left: auto;
 }
 
 #principal {
@@ -129,3 +212,4 @@
   background-position: center;
   height: 100vh;
 }
+

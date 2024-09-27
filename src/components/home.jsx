@@ -18,28 +18,46 @@ const Home = ({ correoUsuario, setShowRenta }) => {
   }, []);
 
   return (
-    
     <div>
-      <h2 className="text-center">
-        Welcome user {correoUsuario}{" "}
-        <button className="btn btn-primary" onClick={() => signOut(auth)}>
-          LogOut
+      {/* Header con botones distribuidos */}
+      <header className="header">
+        <div className="container-header">
+          <div className="nav-buttons">
+            <button className="btn">Buscar</button>
+            <button className="btn">Cuando reservar</button>
+            <button className="btn">Ofertas</button>
+          </div>
+          <button className="btn login-btn">Inicio de Sesion</button>
+        </div>
+      </header>
+
+      {/* Bienvenida al usuario */}
+      <div className="welcome-card">
+        <h2>
+          Bienvenido, <span className="user-email">{correoUsuario}</span>
+        </h2>
+        <button className="btn btn-primary logout-btn" onClick={() => signOut(auth)}>
+          Cerrar Sesión
         </button>
-      </h2>
-      <h3>Catalogo de Vehiculos</h3>
-      <ul>
-        {vehiculos.map((vehiculo) => (
-          <li key={vehiculo.id}>
-            <VehicleCard vehicles={vehiculo} />
-            <button
-              className="btn btn-primary"
-              onClick={() => setShowRenta()}
-            >
-              Rentar el vehiculo
-            </button>
-          </li>
-        ))}
-      </ul>
+      </div>
+
+      {/* Catálogo de Vehículos */}
+      <div className="catalogo-container">
+        <h3 className="catalogo-title">Catálogo de Vehículos</h3>
+        <div className="vehicle-grid">
+          {vehiculos.map((vehiculo) => (
+            <div className="vehicle-card" key={vehiculo.id}>
+              <VehicleCard vehicles={vehiculo} />
+              <button
+                className="btn btn-primary rent-btn"
+                onClick={() => setShowRenta()}
+              >
+                Rentar el vehículo
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
