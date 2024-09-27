@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import imageProfile from "../assets/Kratos.png";
+import imageProfile from "../assets/Kratos.png"; // Imagen de perfil
+import backgroundImage from "../assets/cap.png"; // Nueva imagen de fondo
 
 import appFirebase from "../../firebaseConfig";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
@@ -7,9 +8,9 @@ const auth = getAuth(appFirebase)
 
 const Login = () => {
   const [registrando, setRegistrando] = useState(false);
-  const [name, setName] = useState();
-  const [lastname, setLastName] = useState();
-  const [id, setId] = useState();
+  const [name, setName] = useState("");
+  const [lastname, setLastName] = useState("");
+  const [id, setId] = useState("");
 
   const functAuthentication = async (e) => {
     e.preventDefault();
@@ -17,38 +18,41 @@ const Login = () => {
     const contraseña = e.target.password.value;
     if (registrando) {
       try {
-        await createUserWithEmailAndPassword(auth, correo, contraseña)
-        console.log('name', name)
-        console.log('lastname', lastname)
-        console.log('id', id)
+        await createUserWithEmailAndPassword(auth, correo, contraseña);
+        console.log('name', name);
+        console.log('lastname', lastname);
+        console.log('id', id);
       } catch (error) {
-        alert('Asegúrate de que la contraseña tenga más de 8 caracteres')
+        alert('Asegúrate de que la contraseña tenga más de 8 caracteres');
       }
     } else {
       try {
-        await signInWithEmailAndPassword(auth, correo, contraseña)
+        await signInWithEmailAndPassword(auth, correo, contraseña);
       } catch (error) {
-        alert('El correo o la contraseña son incorrectos')
+        alert('El correo o la contraseña son incorrectos');
       }
     }
-  }
+  };
 
   return (
     <>
+      {/* Header con botones distribuidos */}
       <header className="header">
         <div className="container-header">
           <div className="nav-buttons">
-          <button className="btn">Buscar</button>
-          <button className="btn">Cuando reservar</button>
-          <button className="btn">Ofertas</button>
+            <button className="btn">Buscar</button>
+            <button className="btn">Cuando reservar</button>
+            <button className="btn">Ofertas</button>
+          </div>
+          <button className="btn login-btn">Inicio de Sesion</button>
         </div>
-        <button className="btn login-btn">Inicio de Sesion</button>
-    </div>
       </header>
-      <div className="Container">
+
+      {/* Formulario de autenticación */}
+      <div className="Container" style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover' }}>
         <div className="padre">
           <div className="card card-body">
-            <img src={imageProfile} alt="" className="estilo-profile" />
+            <img src={imageProfile} alt="profile" className="estilo-profile" />
             <form onSubmit={functAuthentication}>
               {registrando && (
                 <>
