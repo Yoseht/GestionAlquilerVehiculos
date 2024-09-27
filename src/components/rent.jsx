@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import appFirebase from '../../firebaseConfig';
 import { getAuth } from 'firebase/auth';
+import backgroundImage from "../assets/cap.png"; // Importar la imagen de fondo
+
 const auth = getAuth(appFirebase);
 
 const Renta = () => {
@@ -23,17 +25,20 @@ const Renta = () => {
 
   return (
     <>
+      {/* Header con los mismos botones que el formulario de Login */}
       <header className="header">
         <div className="container-header">
           <div className="nav-buttons">
             <button className="btn">Buscar</button>
+            <button className="btn">Cuando reservar</button>
             <button className="btn">Ofertas</button>
-            <button className="btn">Contacto</button>
           </div>
           <button className="btn login-btn">Inicio de Sesión</button>
         </div>
       </header>
-      <div className="Container">
+
+      {/* Aplicar la imagen de fondo */}
+      <div className="Container" style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover' }}>
         <div className="padre">
           <div className="card card-body">
             <h2>Formulario de Renta</h2>
