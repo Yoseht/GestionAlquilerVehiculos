@@ -43,17 +43,7 @@ const Home = () => {
           <Link to="/cliente/vehiculos">Vehículos disponibles</Link>
         </li>
       </ul>
-      <ul>
-        {vehiculos.map((vehiculo) => (
-          <li key={vehiculo.id}>
-            <h2>{vehiculo.marca} {vehiculo.modelo}</h2>
-            <p>{vehiculo.descripcion}</p>
-            <button onClick={() => console.log('Rentar vehículo')}>Rentar</button>
-          </li>
-        ))}
-      </ul>
     </div>
-    
   );
 };
 

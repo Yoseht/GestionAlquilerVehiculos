@@ -6,6 +6,7 @@ import Home from './components/home';
 import Admin from './components/administrador'
 import Renta from './components/rent';
 import Clientes from './components/clientes';
+import VehiculosDisponibles from './components/vehiculosDisponibles';
 
 import RegistroUsuario from './components/RegistroUsuario';
 import { auth } from './firebase/firebaseConfig';
@@ -38,6 +39,7 @@ function App() {
         <Route path="/admin/*" element={<Admin />}/>
         <Route path="admin/vehiculos" element={<InventarioVehiculos />} />
         <Route path="admin/usuarios" element={<Clientes />} />
+        <Route path="cliente/vehiculos" element={<VehiculosDisponibles/>}/>
         <Route path="*" element={<div>No encontrado</div>} />
       </Routes>
     </BrowserRouter>

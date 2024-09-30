@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {db} from '../firebase/firebaseConfig';
-import { addDoc, collection, doc, getDocs, deleteDoc, updateDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDocs, deleteDoc, updateDoc, where,query } from "firebase/firestore";
 import { getStorage,ref as storageRef,uploadBytes,getDownloadURL } from "firebase/storage";
 
 const storage = getStorage();
@@ -33,6 +33,7 @@ const InventarioVehiculos = () =>{
             año: año,
             descripcion: descripcion,
             imagen: imagenUrl,
+            disponible: true,
           });
           setMarca('');
           setModelo('');
