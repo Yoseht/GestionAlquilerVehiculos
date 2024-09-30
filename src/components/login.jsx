@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import imageProfile from "../assets/Kratos.png"; // Imagen de perfil
-import backgroundImage from "../assets/cap.png"; // Nueva imagen de fondo
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { db } from '../firebase/firebaseConfig';
+import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 
-import appFirebase from "../../firebaseConfig";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
-const auth = getAuth(appFirebase)
+const auth = getAuth();
 
 const Login = () => {
+  const navigate = useNavigate();
   const [registrando, setRegistrando] = useState(false);
-  const [name, setName] = useState("");
-  const [lastname, setLastName] = useState("");
-  const [id, setId] = useState("");
+  const [rol, setRol] = useState('');
+  const [campos, setCampos] = useState({});
 
   const functAuthentication = async (e) => {
     e.preventDefault();
@@ -18,94 +18,158 @@ const Login = () => {
     const contraseña = e.target.password.value;
     if (registrando) {
       try {
-        await createUserWithEmailAndPassword(auth, correo, contraseña);
-        console.log('name', name);
-        console.log('lastname', lastname);
-        console.log('id', id);
+        const userCredential = await createUserWithEmailAndPassword(auth, correo, contraseña);
+        const usuario = {
+          uid: userCredential.user.uid,
+          rol: rol,
+          ...campos,
+        };
+        const usuariosCollection = collection(db, 'usuarios');
+        await addDoc(usuariosCollection, usuario);
+        console.log('Usuario registrado con éxito');
+        navigate('/home');
       } catch (error) {
-        alert('Asegúrate de que la contraseña tenga más de 8 caracteres');
+        console.error('Error al registrar usuario:', error);
       }
     } else {
       try {
-        await signInWithEmailAndPassword(auth, correo, contraseña);
+        const userCredential = await signInWithEmailAndPassword(auth, correo, contraseña);
+        const user = userCredential.user;
+        const usuariosCollection = collection(db, 'usuarios');
+        const querySnapshot = await getDocs(usuariosCollection);
+        const usuario = querySnapshot.docs.find((doc) => doc.data().uid === user.uid);
+        if (usuario.data().rol === 'administrador') {
+          navigate('/admin');
+        } else if (usuario.data().rol === 'cliente') {
+          navigate('/home');
+        }
       } catch (error) {
-        alert('El correo o la contraseña son incorrectos');
+        console.error('Error al iniciar sesión:', error);
       }
     }
   };
 
+  const handleRolChange = (e) => {
+    setRol(e.target.value);
+  };
+
+  const handleCampoChange = (e) => {
+    setCampos({ ...campos, [e.target.name]: e.target.value });
+  };
+
   return (
     <>
-      {/* Header con botones distribuidos */}
-      <header className="header">
-        <div className="container-header">
-          <div className="nav-buttons">
-            <button className="btn">Buscar</button>
-            <button className="btn">Cuando reservar</button>
-            <button className="btn">Ofertas</button>
-          </div>
-          <button className="btn login-btn">Inicio de Sesion</button>
-        </div>
-      </header>
-
       {/* Formulario de autenticación */}
-      <div className="Container" style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover' }}>
-        <div className="padre">
-          <div className="card card-body">
-            <img src={imageProfile} alt="profile" className="estilo-profile" />
-            <form onSubmit={functAuthentication}>
-              {registrando && (
+      <div>
+        <form onSubmit={functAuthentication}>
+          {registrando && (
+            <>
+              <select value={rol} onChange={handleRolChange}>
+                <option value="">Seleccione un rol</option>
+                <option value="administrador">Administrador</option>
+                <option value="cliente">Cliente</option>
+              </select>
+              {rol === 'administrador' && (
                 <>
                   <input
                     type="text"
-                    placeholder="nombre"
-                    className="cajaTexto"
-                    id="nombre"
-                    onChange={(e) => setName(e.target.value)}
+                    name="nombre"
+                    placeholder="Nombre"
+                    value={campos.nombre}
+                    onChange={handleCampoChange}
                   />
                   <input
                     type="text"
-                    placeholder="apellido"
-                    className="cajaTexto"
-                    id="apellido"
-                    onChange={(e) => setLastName(e.target.value)}
+                    name="apellido"
+                    placeholder="Apellido"
+                    value={campos.apellido}
+                    onChange={handleCampoChange}
+                  />
+                  <input
+                    type="email"
+                    name="correo"
+                    placeholder="Correo"
+                    value={campos.correo}
+                    onChange={handleCampoChange}
+                  />
+                  <input
+                    type="password"
+                    name="contraseña"
+                    placeholder="Contraseña"
+                    value={campos.contraseña}
+                    onChange={handleCampoChange}
                   />
                   <input
                     type="text"
-                    placeholder="identificación"
-                    className="cajaTexto"
-                    id="identificacion"
-                    value={id}
-                    onChange={(e) => setId(e.target.value)}
+                    name="inventario"
+                    placeholder="Inventario"
+                    value={campos.inventario}
+                    onChange={handleCampoChange}
                   />
                 </>
               )}
-              <input
-                type="text"
-                placeholder="Email"
-                className="cajaTexto"
-                id="email"
-              />
-              <input
-                type="password"
-                placeholder="Contraseña"
-                className="cajaTexto"
-                id="password"
-              />
+              {rol === 'cliente' && (
+                <>
+                  <input
+                    type="text"
+                    name="identificacion"
+                    placeholder="Identificación"
+                    value={campos.identificacion}
+                    onChange={handleCampoChange}
+                  />
+                  <input
+                    type="text"
+                    name="nombre"
+                    placeholder="Nombre"
+                    value={campos.nombre}
+                    onChange={handleCampoChange}
+                  />
+                  <input
+                    type="text"
+                    name="apellido"
+                    placeholder="Apellido"
+                    value={campos.apellido}
+                    onChange={handleCampoChange}
+                  />
+                  <input
+                    type="email"
+                    name="correo"
+                    placeholder="Correo"
+                    value={campos.correo}
+                    onChange={handleCampoChange}
+                  />
+                  <input
+                    type="password"
+                    name="contraseña"
+                    placeholder="Contraseña"
+                    value={campos.contraseña}
+                    onChange={handleCampoChange}
+                  />
+                </>
+              )}
+            </>
+          )}
+          <input
+            type="email"
+            placeholder="Email"
+            id="email"
+          />
+          <input
+            type="password"
+            placeholder="Contraseña"
+            id="password"
+          />
 
-              <button className="btnform">
-                {registrando ? "Regístrate" : "Inicia Sesión"}
-              </button>
-            </form>
-            <h4 className="texto">
-              {registrando ? "Si ya tienes cuenta" : "No tienes cuenta"}{" "}
-              <button className="btnswitch" onClick={() => setRegistrando(!registrando)}>
-                {registrando ? "Inicia Sesión" : "Regístrate"}
-              </button>
-            </h4>
-          </div>
-        </div>
+          <button type="submit">
+            {registrando ? 'Registrar' : 'Iniciar sesión'}
+          </button>
+        </form>
       </div>
+
+      {/* Botón para cambiar entre registro e inicio de sesión */}
+      <button onClick={() => setRegistrando(!registrando)}>
+        {registrando ? '¿Ya tienes cuenta? Inicia sesión' : '¿No tienes cuenta? Regístrate'}
+      </button>
     </>
   );
 };

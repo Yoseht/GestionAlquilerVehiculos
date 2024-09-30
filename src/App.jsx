@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import appFirebase from '../firebaseConfig';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import Login from './components/login';
 import Home from './components/home';
+import Admin from './components/administrador'
 import Renta from './components/rent';
-import './App.css'
+import Clientes from './components/clientes';
 
-const auth = getAuth(appFirebase);
+import RegistroUsuario from './components/RegistroUsuario';
+import { auth } from './firebase/firebaseConfig';
+import InventarioVehiculos from './components/inventarioVehiculos';
 
 function App() {
   const [usuario, setUsuario] = useState(null);
@@ -14,6 +17,7 @@ function App() {
 
   useEffect(() => {
     const unsuscribe = onAuthStateChanged(auth, (usuarioFirebase) => {
+      console.log('estado de usuario: ', usuarioFirebase)
       if (usuarioFirebase) {
         setUsuario(usuarioFirebase);
       } else {
@@ -26,20 +30,19 @@ function App() {
   const handleRentaClick = () => {
     setShowRenta(true);
   };
-
   return (
-    <div>
-      {usuario ? (
-        showRenta ? (
-          <Renta />
-        ) : (
-          <Home correoUsuario={usuario.email} setShowRenta={handleRentaClick} />
-        )
-      ) : (
-        <Login />
-      )}
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/admin/*" element={<Admin />}/>
+        <Route path="admin/vehiculos" element={<InventarioVehiculos />} />
+        <Route path="admin/usuarios" element={<Clientes />} />
+        <Route path="*" element={<div>No encontrado</div>} />
+      </Routes>
+    </BrowserRouter>
   );
-}
+  
+  }
 
 export default App;

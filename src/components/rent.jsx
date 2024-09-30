@@ -1,91 +1,71 @@
-import React, { useState } from 'react';
-import appFirebase from '../../firebaseConfig';
+import React, { useState, useEffect } from 'react';
+import { db, auth } from "../firebase/firebaseConfig"
 import { getAuth } from 'firebase/auth';
-import backgroundImage from "../assets/cap.png"; // Importar la imagen de fondo
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
-const auth = getAuth(appFirebase);
 
 const Renta = () => {
+  const [vehiculo, setVehiculo] = useState({});
   const [nombre, setNombre] = useState('');
   const [apellido, setApellido] = useState('');
   const [direccion, setDireccion] = useState('');
   const [telefono, setTelefono] = useState('');
   const [municipio, setMunicipio] = useState('');
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    setVehiculo(location.state.vehiculo);
+  }, [location.state]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log({
-      nombre,
-      apellido,
-      direccion,
-      telefono,
-      municipio,
+    const usuariosCollection = collection(db, 'usuarios');
+    const querySnapshot = getDocs(usuariosCollection);
+    querySnapshot.then((querySnapshot) => {
+      const usuario = querySnapshot.docs.find((doc) => doc.data().uid === auth.currentUser.uid);
+      const renta = {
+        vehiculo: vehiculo.id,
+        usuario: usuario.data().uid,
+        nombre,
+        apellido,
+        direccion,
+        telefono,
+        municipio,
+      };
+      const rentasCollection = collection(db, 'rentas');
+      addDoc(rentasCollection, renta);
+      navigate('/home');
     });
   };
 
   return (
-    <>
-      {/* Header con los mismos botones que el formulario de Login */}
-      <header className="header">
-        <div className="container-header">
-          <div className="nav-buttons">
-            <button className="btn">Buscar</button>
-            <button className="btn">Cuando reservar</button>
-            <button className="btn">Ofertas</button>
-          </div>
-          <button className="btn login-btn">Inicio de Sesión</button>
-        </div>
-      </header>
-
-      {/* Aplicar la imagen de fondo */}
-      <div className="Container" style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover' }}>
-        <div className="padre">
-          <div className="card card-body">
-            <h2>Formulario de Renta</h2>
-            <form onSubmit={handleSubmit}>
-              <input
-                type="text"
-                placeholder="Nombre"
-                className="cajaTexto"
-                value={nombre}
-                onChange={(event) => setNombre(event.target.value)}
-              />
-              <input
-                type="text"
-                placeholder="Apellido"
-                className="cajaTexto"
-                value={apellido}
-                onChange={(event) => setApellido(event.target.value)}
-              />
-              <input
-                type="text"
-                placeholder="Dirección"
-                className="cajaTexto"
-                value={direccion}
-                onChange={(event) => setDireccion(event.target.value)}
-              />
-              <input
-                type="text"
-                placeholder="Teléfono"
-                className="cajaTexto"
-                value={telefono}
-                onChange={(event) => setTelefono(event.target.value)}
-              />
-              <select
-                className="cajaTexto"
-                value={municipio}
-                onChange={(event) => setMunicipio(event.target.value)}
-              >
-                <option value="Medellín">Medellín</option>
-                <option value="Bello">Bello</option>
-                <option value="Itagüí">Itagüí</option>
-              </select>
-              <button className="btnform">Enviar</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </>
+    <div>
+      <h1>Renta de vehículo</h1>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Nombre:
+          <input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} />
+        </label>
+        <label>
+          Apellido:
+          <input type="text" value={apellido} onChange={(e) => setApellido(e.target.value)} />
+        </label>
+        <label>
+          Dirección:
+          <input type="text" value={direccion} onChange={(e) => setDireccion(e.target.value)} />
+        </label>
+        <label>
+          Teléfono:
+          <input type="text" value={telefono} onChange={(e) => setTelefono(e.target.value)} />
+        </label>
+        <label>
+          Municipio:
+          <input type="text" value={municipio} onChange={(e) => setMunicipio(e.target.value)} />
+        </label>
+        <button type="submit">Rentar</button>
+      </form>
+    </div>
   );
 };
 
