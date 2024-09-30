@@ -1,59 +1,84 @@
-import React,{useState,useEffect} from "react";
-import{auth, db} from '../firebase/firebaseConfig'
-import { collection,getDocs, updateDoc,doc, addDoc } from "firebase/firestore";
+import React, { useState, useEffect } from 'react';
+import { db } from '../firebase/firebaseConfig';
+import { collection, getDocs, doc, updateDoc, addDoc } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
+import FormularioAlquiler from './FormularioAlquiler';
 
-const vehiculosDisponibles = () =>{
-    const[vehiculos, setVehiculos] = useState([]);
-    const[mensaje, setMensaje] = useState('');
+const auth = getAuth();
 
-    useEffect(() =>{
-        const vehiculosCollectionRef = collection(db, 'vehiculos');
-        const getVehiculos = async () => {
-            const querySnapshot = await getDocs(vehiculosCollectionRef);
-            const vehiculos = querySnapshot.docs.map((doc) => ({id: doc.id, ...doc.data()}));
-            setVehiculos(vehiculos);
-        };
-        getVehiculos();
-    }, []);
-    const handleRentar = async (vehiculo) =>{
-        const vehiculoRef = doc(db,'vehiculos',vehiculo.id);
-        const vehiculoActualizado = {...vehiculo, disponible: false};
-        await updateDoc(vehiculoRef, vehiculoActualizado);
+const VehiculosDisponibles = () => {
+  const [vehiculos, setVehiculos] = useState([]);
+  const [showFormulario, setShowFormulario] = useState(false);
+  const [vehiculoSeleccionado, setVehiculoSeleccionado] = useState(null);
+  const [mensaje, setMensaje] = useState('');
 
-        const rentasCollection = collection(db, 'rentas');
-        const renta = {
-            usuario: auth.currentUser.uid,
-            vehiculo: vehiculo.id,
-        };
-        await addDoc(rentasCollection, renta)
-        setMensaje(`El vehículo ${vehiculo.marca} ${vehiculo.modelo} ha sido rentado`);
-        setTimeout(()=>{
-            setMensaje('');
-        },3000);
+  useEffect(() => {
+    const vehiculosCollection = collection(db, 'vehiculos');
+    const querySnapshot = getDocs(vehiculosCollection);
+    querySnapshot.then((querySnapshot) => {
+      const vehiculos = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      setVehiculos(vehiculos);
+    });
+  }, []);
+
+  const handleRenta = (vehiculo) => {
+    setVehiculoSeleccionado(vehiculo);
+    setShowFormulario(true);
+  };
+
+  const handleRentaSubmit = (datosAlquiler) => {
+    if (!datosAlquiler.numeroLicencia || !datosAlquiler.lugarSolicitud) {
+      alert('Por favor, complete todos los campos');
+      return;
     }
-    return(
-        <div>
-            <h1>Vehiculos Disponibles</h1>
-            <ul>
-                {vehiculos.map((vehiculo)=>(
-                    <li key={vehiculo.id}>
-                        <h2>{vehiculo.marca}{vehiculo.modelo}</h2>
-                        <p>{vehiculo.descripcion}</p>
-                        <img src={vehiculo.imagen} alt={vehiculo.modelo} style={{width: '100px',height: '100px'}}/>
-                        {vehiculo.disponible !== undefined ? (
-                             vehiculo.disponible ? (
-                                <button onClick={() => handleRentar(vehiculo)}>Rentar</button>
-                            ) : (
-                                 <p>No disponible</p>
-                                )
-                            ) : (
-                                 <p>No disponible</p>
-                                )}
-                    </li>
-                ))}
-            </ul>
-            {mensaje && <p style={{color: 'red'}}>{mensaje}</p>}
-        </div>
-    );
+    const rentasCollection = collection(db, 'rentas');
+    const renta = {
+      usuario: auth.currentUser.uid,
+      vehiculo: vehiculoSeleccionado.id,
+      fechaAlquiler: datosAlquiler.fechaAlquiler ? new Date(datosAlquiler.fechaAlquiler).toISOString() : '',
+      fechaDevolucion: datosAlquiler.fechaDevolucion ? new Date(datosAlquiler.fechaDevolucion).toISOString() : '',
+      numeroLicencia: datosAlquiler.numeroLicencia,
+      lugarSolicitud: datosAlquiler.lugarSolicitud,
+    };
+    addDoc(rentasCollection, renta).then(() => {
+      const vehiculoRef = doc(db, 'vehiculos', vehiculoSeleccionado.id);
+      const vehiculoActualizado = { ...vehiculoSeleccionado, disponible: false };
+      updateDoc(vehiculoRef, vehiculoActualizado).then(() => {
+        setMensaje(`El vehículo ${vehiculoSeleccionado.marca} ${vehiculoSeleccionado.modelo} ha sido rentado`);
+        setTimeout(() => {
+          setMensaje('');
+        }, 3000);
+      });
+    });
+  };
+  return (
+    <div>
+      <h1>Vehículos disponibles</h1>
+      <ul>
+        {vehiculos.map((vehiculo) => (
+          <li key={vehiculo.id}>
+            <h2>{vehiculo.marca} {vehiculo.modelo}</h2>
+            <p>{vehiculo.descripcion}</p>
+            <img src={vehiculo.imagen} alt={vehiculo.modelo} style={{ width: '100px', height: '100px' }} />
+            {vehiculo.disponible ? (
+              <button onClick={() => handleRenta(vehiculo)}>Rentar</button>
+            ) : (
+              <p>No disponible</p>
+            )}
+          </li>
+        ))}
+      </ul>
+      {showFormulario && (
+        <FormularioAlquiler
+          vehiculo={vehiculoSeleccionado}
+          handleRenta={handleRentaSubmit}
+        />
+      )}
+      {showFormulario && (
+        <Alquileres />
+      )}
+    </div>
+  );
 };
-export default vehiculosDisponibles;
+
+export default VehiculosDisponibles;

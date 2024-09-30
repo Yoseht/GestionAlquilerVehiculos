@@ -4,6 +4,7 @@ import { Link, Route, useNavigate, Routes } from 'react-router-dom';
 import Clientes from './clientes';
 import InventarioVehiculos from './inventarioVehiculos';
 import { collection, getDocs } from 'firebase/firestore';
+import Alquileres from './Alquileres';
 
 const auth = getAuth();
 const Administrador = () =>{
@@ -36,6 +37,8 @@ const handleLogout = async ()=>{
       <Routes>
         <Route path='/admin/usuarios' Component={Clientes}/>
         <Route path='/admin/vehiculos' Component={InventarioVehiculos}/>
+        <Route path='/admin/alquileres' Component={Alquileres}/>
+
       </Routes>
     </div>
   );
