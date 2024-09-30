@@ -11,14 +11,13 @@ const Login = () => {
   const [registrando, setRegistrando] = useState(false);
   const [rol, setRol] = useState('');
   const [campos, setCampos] = useState({});
+  const [credenciales, setCredenciales] = useState({ email: '', password: '' });
 
   const functAuthentication = async (e) => {
     e.preventDefault();
-    const correo = e.target.email.value;
-    const contraseña = e.target.password.value;
     if (registrando) {
       try {
-        const userCredential = await createUserWithEmailAndPassword(auth, correo, contraseña);
+        const userCredential = await createUserWithEmailAndPassword(auth, campos.correo, campos.contraseña);
         const usuario = {
           uid: userCredential.user.uid,
           rol: rol,
@@ -33,7 +32,7 @@ const Login = () => {
       }
     } else {
       try {
-        const userCredential = await signInWithEmailAndPassword(auth, correo, contraseña);
+        const userCredential = await signInWithEmailAndPassword(auth, credenciales.email, credenciales.password);
         const user = userCredential.user;
         const usuariosCollection = collection(db, 'usuarios');
         const querySnapshot = await getDocs(usuariosCollection);
@@ -57,12 +56,16 @@ const Login = () => {
     setCampos({ ...campos, [e.target.name]: e.target.value });
   };
 
+  const handleCredencialesChange = (e) => {
+    setCredenciales({ ...credenciales, [e.target.name]: e.target.value });
+  };
+
   return (
     <>
       {/* Formulario de autenticación */}
       <div>
         <form onSubmit={functAuthentication}>
-          {registrando && (
+          {registrando ? (
             <>
               <select value={rol} onChange={handleRolChange}>
                 <option value="">Seleccione un rol</option>
@@ -132,6 +135,13 @@ const Login = () => {
                     onChange={handleCampoChange}
                   />
                   <input
+                    type="text"
+                    name="telefono"
+                    placeholder="Telefono"
+                    value={campos.telefono}
+                    onChange={handleCampoChange}
+                  />
+                  <input
                     type="email"
                     name="correo"
                     placeholder="Correo"
@@ -148,28 +158,35 @@ const Login = () => {
                 </>
               )}
             </>
+          ) : (
+            <>
+              <input
+                type="email"
+                name="email"
+                placeholder="Correo"
+                value={credenciales.email}
+                onChange={handleCredencialesChange}
+              />
+              <input
+                type="password"
+                name="password"
+                placeholder="Contraseña"
+                value={credenciales.password}
+                onChange={handleCredencialesChange}
+              />
+            </>
           )}
-          <input
-            type="email"
-            placeholder="Email"
-            id="email"
-          />
-          <input
-            type="password"
-            placeholder="Contraseña"
-            id="password"
-          />
-
+          {registrando && (
+            <p>Para iniciar sesión, haz clic en el botón ¿Ya tienes cuenta?</p>
+          )}
           <button type="submit">
             {registrando ? 'Registrar' : 'Iniciar sesión'}
           </button>
         </form>
+        <button onClick={() => setRegistrando(!registrando)}>
+          {registrando ? '¿Ya tienes cuenta?' : '¿No tienes cuenta?'}
+        </button>
       </div>
-
-      {/* Botón para cambiar entre registro e inicio de sesión */}
-      <button onClick={() => setRegistrando(!registrando)}>
-        {registrando ? '¿Ya tienes cuenta? Inicia sesión' : '¿No tienes cuenta? Regístrate'}
-      </button>
     </>
   );
 };
