@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from "react";
-import{db} from '../firebase/firebaseConfig'
-import { collection,getDocs, updateDoc,doc } from "firebase/firestore";
+import{auth, db} from '../firebase/firebaseConfig'
+import { collection,getDocs, updateDoc,doc, addDoc } from "firebase/firestore";
 
 const vehiculosDisponibles = () =>{
     const[vehiculos, setVehiculos] = useState([]);
@@ -19,7 +19,14 @@ const vehiculosDisponibles = () =>{
         const vehiculoRef = doc(db,'vehiculos',vehiculo.id);
         const vehiculoActualizado = {...vehiculo, disponible: false};
         await updateDoc(vehiculoRef, vehiculoActualizado);
-        setMensaje(`El vehículo ${vehiculo.marca} ${vehiculo.modelo} no se encuentra disponible`);
+
+        const rentasCollection = collection(db, 'rentas');
+        const renta = {
+            usuario: auth.currentUser.uid,
+            vehiculo: vehiculo.id,
+        };
+        await addDoc(rentasCollection, renta)
+        setMensaje(`El vehículo ${vehiculo.marca} ${vehiculo.modelo} ha sido rentado`);
         setTimeout(()=>{
             setMensaje('');
         },3000);
