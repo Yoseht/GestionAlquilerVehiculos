@@ -3,6 +3,7 @@ import { db } from '../firebase/firebaseConfig';
 import { collection, getDocs, doc, updateDoc, addDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import FormularioAlquiler from './formularioAlquiler';
+import '../App.css'; // Asegúrate de tener este archivo CSS
 
 const auth = getAuth();
 
@@ -13,12 +14,14 @@ const VehiculosDisponibles = () => {
   const [mensaje, setMensaje] = useState('');
 
   useEffect(() => {
-    const vehiculosCollection = collection(db, 'vehiculos');
-    const querySnapshot = getDocs(vehiculosCollection);
-    querySnapshot.then((querySnapshot) => {
-      const vehiculos = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-      setVehiculos(vehiculos);
-    });
+    const fetchVehiculos = async () => {
+      const vehiculosCollection = collection(db, 'vehiculos');
+      const querySnapshot = await getDocs(vehiculosCollection);
+      const vehiculosData = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      setVehiculos(vehiculosData);
+    };
+
+    fetchVehiculos();
   }, []);
 
   const handleRenta = (vehiculo) => {
@@ -26,7 +29,7 @@ const VehiculosDisponibles = () => {
     setShowFormulario(true);
   };
 
-  const handleRentaSubmit = (datosAlquiler) => {
+  const handleRentaSubmit = async (datosAlquiler) => {
     const rentasCollection = collection(db, 'rentas');
     const renta = {
       usuario: auth.currentUser.uid,
@@ -36,32 +39,36 @@ const VehiculosDisponibles = () => {
       numeroLicencia: datosAlquiler.numeroLicencia,
       fechaInicio: new Date(),
     };
-    addDoc(rentasCollection, renta).then(() => {
-      const vehiculoRef = doc(db, 'vehiculos', vehiculoSeleccionado.id);
-      const vehiculoActualizado = { ...vehiculoSeleccionado, disponible: false };
-      updateDoc(vehiculoRef, vehiculoActualizado).then(() => {
-        setMensaje(`El vehículo ${vehiculoSeleccionado.marca} ${vehiculoSeleccionado.modelo} ha sido rentado`);
-        setTimeout(() => {
-          setMensaje('');
-        }, 3000);
-      });
-    });
+    
+    await addDoc(rentasCollection, renta);
+    
+    const vehiculoRef = doc(db, 'vehiculos', vehiculoSeleccionado.id);
+    const vehiculoActualizado = { ...vehiculoSeleccionado, disponible: false };
+    
+    await updateDoc(vehiculoRef, vehiculoActualizado);
+    setMensaje(`El vehículo ${vehiculoSeleccionado.marca} ${vehiculoSeleccionado.modelo} ha sido rentado`);
+    
+    setTimeout(() => {
+      setMensaje('');
+    }, 3000);
   };
 
   return (
-    <div>
+    <div className="vehiculos-container">
       <h1>Vehículos disponibles</h1>
-      <ul>
+      <ul className="vehiculos-list">
         {vehiculos.map((vehiculo) => (
-          <li key={vehiculo.id}>
+          <li key={vehiculo.id} className="vehiculo-item">
             <h2>{vehiculo.marca} {vehiculo.modelo}</h2>
             <p>{vehiculo.descripcion}</p>
-            <img src={vehiculo.imagen} alt={vehiculo.modelo} style={{ width: '100px', height: '100px' }} />
-            {vehiculo.disponible ? (
-              <button onClick={() => handleRenta(vehiculo)}>Rentar</button>
-            ) : (
-              <p>No disponible</p>
-            )}
+            <img src={vehiculo.imagen} alt={vehiculo.modelo} className="vehiculo-imagen" />
+            <div className="button-container"> {/* Contenedor para el botón */}
+              {vehiculo.disponible ? (
+                <button className="rentar-button" onClick={() => handleRenta(vehiculo)}>Rentar</button>
+              ) : (
+                <p className="no-disponible">No disponible</p>
+              )}
+            </div>
           </li>
         ))}
       </ul>
@@ -71,7 +78,7 @@ const VehiculosDisponibles = () => {
           handleRenta={handleRentaSubmit}
         />
       )}
-      {mensaje && <p style={{ color: 'red' }}>{mensaje}</p>}
+      {mensaje && <p className="mensaje">{mensaje}</p>}
     </div>
   );
 };

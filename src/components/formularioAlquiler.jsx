@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../App.css'; // Asegúrate de importar el archivo CSS
 
 const FormularioAlquiler = ({ vehiculo, handleRenta }) => {
   const [numeroLicencia, setNumeroLicencia] = useState('');
@@ -18,46 +19,52 @@ const FormularioAlquiler = ({ vehiculo, handleRenta }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Formulario de alquiler de vehículo</h2>
-      <label>
-        Número de licencia:
-        <input
-          type="text"
-          value={numeroLicencia}
-          onChange={(event) => setNumeroLicencia(event.target.value)}
-        />
-      </label>
-      <br />
-      <label>
-        Ubicación:
-        <input
-          type="text"
-          value={ubicacion}
-          onChange={(event) => setUbicacion(event.target.value)}
-        />
-      </label>
-      <br />
-      <label>
-        Fecha de alquiler:
-        <input
-          type="date"
-          value={fechaAlquiler}
-          onChange={(event) => setFechaAlquiler(event.target.value)}
-        />
-      </label>
-      <br />
-      <label>
-        Fecha de devolución:
-        <input
-          type="date"
-          value={fechaDevolucion}
-          onChange={(event) => setFechaDevolucion(event.target.value)}
-        />
-      </label>
-      <br />
-      <button type="submit">Rentar vehículo</button>
-    </form>
+    <div className="formulario-container">
+      <h2>Formulario de Alquiler de Vehículo</h2>
+      <form onSubmit={handleSubmit} className="formulario-alquiler">
+        <div className="form-group">
+          <label htmlFor="numeroLicencia">Número de Licencia:</label>
+          <input
+            type="text"
+            id="numeroLicencia"
+            value={numeroLicencia}
+            onChange={(event) => setNumeroLicencia(event.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="ubicacion">Ubicación:</label>
+          <input
+            type="text"
+            id="ubicacion"
+            value={ubicacion}
+            onChange={(event) => setUbicacion(event.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="fechaAlquiler">Fecha de Alquiler:</label>
+          <input
+            type="date"
+            id="fechaAlquiler"
+            value={fechaAlquiler}
+            onChange={(event) => setFechaAlquiler(event.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="fechaDevolucion">Fecha de Devolución:</label>
+          <input
+            type="date"
+            id="fechaDevolucion"
+            value={fechaDevolucion}
+            onChange={(event) => setFechaDevolucion(event.target.value)}
+            required
+          />
+        </div>
+        <button type="submit" className="submit-button">Rentar Vehículo</button>
+      </form>
+    </div>
   );
 };
 
