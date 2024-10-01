@@ -4,6 +4,7 @@ import { collection, getDocs, doc, updateDoc, addDoc } from 'firebase/firestore'
 import { getAuth } from 'firebase/auth';
 import FormularioAlquiler from './formularioAlquiler';
 import '../App.css'; // Asegúrate de tener este archivo CSS
+import { Link } from 'react-router-dom';
 
 const auth = getAuth();
 
@@ -69,7 +70,11 @@ const VehiculosDisponibles = () => {
                 <p className="no-disponible">No disponible</p>
               )}
             </div>
+            <Link to="/home">
+            <button>Volver a la página de inicio</button>
+            </Link>
           </li>
+          
         ))}
       </ul>
       {showFormulario && (
@@ -78,6 +83,7 @@ const VehiculosDisponibles = () => {
           handleRenta={handleRentaSubmit}
         />
       )}
+
       {mensaje && <p className="mensaje">{mensaje}</p>}
     </div>
   );
