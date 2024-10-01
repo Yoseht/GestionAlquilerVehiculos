@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../firebase/firebaseConfig';
 import { collection, getDocs } from 'firebase/firestore';
+import '../App.css'; // Archivo de estilos
 
 const Alquileres = () => {
   const [alquileres, setAlquileres] = useState([]);
@@ -15,20 +16,22 @@ const Alquileres = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Alquileres</h1>
-      <ul>
+    <div className="contenedor-alquileres">
+      <header className="encabezado-alquileres">
+        <h1>Alquileres</h1>
+      </header>
+      <div className="lista-alquileres">
         {alquileres.map((alquiler) => (
-          <li key={alquiler.id}>
-            <h2>Alquiler {alquiler.id}</h2>
-            <p>Usuario: {alquiler.usuario}</p>
-            <p>Vehículo: {alquiler.vehiculo}</p>
-            <p>Fecha de alquiler: {alquiler.fechaAlquiler}</p>
-            <p>Fecha de devolución: {alquiler.fechaDevolucion}</p>
-            <p>Número de licencia: {alquiler.numeroLicencia}</p>
-          </li>
+          <div className="tarjeta-alquiler" key={alquiler.id}>
+            <h2>Alquiler ID: {alquiler.id}</h2>
+            <p><strong>Usuario:</strong> {alquiler.usuario}</p>
+            <p><strong>Vehículo:</strong> {alquiler.vehiculo}</p>
+            <p><strong>Fecha de alquiler:</strong> {new Date(alquiler.fechaAlquiler).toLocaleDateString()}</p>
+            <p><strong>Fecha de devolución:</strong> {new Date(alquiler.fechaDevolucion).toLocaleDateString()}</p>
+            <p><strong>Número de licencia:</strong> {alquiler.numeroLicencia}</p>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
