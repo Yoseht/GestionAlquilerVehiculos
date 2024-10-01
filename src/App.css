@@ -100,12 +100,13 @@ input:focus, select:focus {
 .welcome-message {
   border-left: 6px solid #007bff; /* Bordes laterales para destacar */
   border-radius: 8px; /* Bordes redondeados */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para un efecto flotante */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9); /* Sombra para un efecto flotante */
+  background-color: rgba(0, 0, 0, 0.7);
   padding: 20px; /* Espaciado interno */
   margin-bottom: 20px;
   text-align: center;
   font-size: 1.5em;
-  color: white;
+  color: rgb(255, 255, 255);
 }
 
 /* Estilo para la lista de enlaces */
@@ -131,7 +132,7 @@ input:focus, select:focus {
 
 /* Estilo para el botón de cerrar sesión */
 .logout-button {
-  background-color: #dc3545; /* Rojo para indicar cierre de sesión */
+  background-color: #472b2e; /* Rojo para indicar cierre de sesión */
   width: 30%; /* Ancho completo */
   display: block;
   margin: 20px auto;
@@ -409,9 +410,14 @@ p {
   padding: 20px;
 }
 
+div{
+
+  color: white;
+}
+
 .welcome-message h1 {
   font-size: 2.5rem;
-  color: #ffffff;
+  color: #fdfdfd;
 }
 
 .welcome-message p {
@@ -462,7 +468,6 @@ p {
 /* Botón de cierre de sesión */
 .logout-button {
   padding: 10px 20px;
-  background-color: transparent;
   color: white;
   border: none;
   border-radius: 5px;
