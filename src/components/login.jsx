@@ -3,7 +3,7 @@ import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } f
 import { db } from '../firebase/firebaseConfig';
 import { collection, addDoc, getDocs } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
-import '../app.css';
+import '../App.css';  // Cambié el archivo de estilos para esta interfaz específica
 
 const auth = getAuth();
 
@@ -62,133 +62,50 @@ const Login = () => {
   };
 
   return (
-    <>
-      {/* Formulario de autenticación */}
-      <div>
-        <form onSubmit={functAuthentication}>
-          {registrando ? (
-            <>
-              <select value={rol} onChange={handleRolChange}>
-                <option value="">Seleccione un rol</option>
-                <option value="administrador">Administrador</option>
-                <option value="cliente">Cliente</option>
-              </select>
-              {rol === 'administrador' && (
-                <>
-                  <input
-                    type="text"
-                    name="nombre"
-                    placeholder="Nombre"
-                    value={campos.nombre}
-                    onChange={handleCampoChange}
-                  />
-                  <input
-                    type="text"
-                    name="apellido"
-                    placeholder="Apellido"
-                    value={campos.apellido}
-                    onChange={handleCampoChange}
-                  />
-                  <input
-                    type="email"
-                    name="correo"
-                    placeholder="Correo"
-                    value={campos.correo}
-                    onChange={handleCampoChange}
-                  />
-                  <input
-                    type="password"
-                    name="contraseña"
-                    placeholder="Contraseña"
-                    value={campos.contraseña}
-                    onChange={handleCampoChange}
-                  />
-                  <input
-                    type="text"
-                    name="inventario"
-                    placeholder="Inventario"
-                    value={campos.inventario}
-                    onChange={handleCampoChange}
-                  />
-                </>
-              )}
-              {rol === 'cliente' && (
-                <>
-                  <input
-                    type="text"
-                    name="identificacion"
-                    placeholder="Identificación"
-                    value={campos.identificacion}
-                    onChange={handleCampoChange}
-                  />
-                  <input
-                    type="text"
-                    name="nombre"
-                    placeholder="Nombre"
-                    value={campos.nombre}
-                    onChange={handleCampoChange}
-                  />
-                  <input
-                    type="text"
-                    name="apellido"
-                    placeholder="Apellido"
-                    value={campos.apellido}
-                    onChange={handleCampoChange}
-                  />
-                  <input
-                    type="text"
-                    name="telefono"
-                    placeholder="Teléfono"
-                    value={campos.telefono}
-                    onChange={handleCampoChange}
-                  />
-                  <input
-                    type="email"
-                    name="correo"
-                    placeholder="Correo"
-                    value={campos.correo}
-                    onChange={handleCampoChange}
-                  />
-                  <input
-                    type="password"
-                    name="contraseña"
-                    placeholder="Contraseña"
-                    value={campos.contraseña}
-                    onChange={handleCampoChange}
-                  />
-                </>
-              )}
-            </>
-          ) : (
-            <>
-              <input
-                type="email"
-                name="email"
-                placeholder="Correo"
-                value={credenciales.email}
-                onChange={handleCredencialesChange}
-              />
-              <input
-                type="password"
-                name="password"
-                placeholder="Contraseña"
-                value={credenciales.password}
-                onChange={handleCredencialesChange}
-              />
-            </>
-          )}
-          {registrando && (
-            <p>Para iniciar sesión, haz clic en el botón ¿Ya tienes cuenta?</p>
-          )}
-          <button type="submit">
-            {registrando ? 'Registrar' : 'Iniciar sesión'}
-          </button>
-        </form>
-        <button onClick={() => setRegistrando(!registrando)}>
-          {registrando ? '¿Ya tienes cuenta?' : '¿No tienes cuenta?'}
+    <div className="login-container">
+      <form className="login-form" onSubmit={functAuthentication}>
+        <h2>{registrando ? 'Registro' : 'Iniciar sesión'}</h2>
+        {registrando ? (
+          <>
+            <select value={rol} onChange={handleRolChange} className="input-field">
+              <option value="">Seleccione un rol</option>
+              <option value="administrador">Administrador</option>
+              <option value="cliente">Cliente</option>
+            </select>
+            {rol === 'administrador' && (
+              <>
+                <input type="text" name="nombre" placeholder="Nombre" value={campos.nombre} onChange={handleCampoChange} className="input-field" />
+                <input type="text" name="apellido" placeholder="Apellido" value={campos.apellido} onChange={handleCampoChange} className="input-field" />
+                <input type="email" name="correo" placeholder="Correo" value={campos.correo} onChange={handleCampoChange} className="input-field" />
+                <input type="password" name="contraseña" placeholder="Contraseña" value={campos.contraseña} onChange={handleCampoChange} className="input-field" />
+                <input type="text" name="inventario" placeholder="Inventario" value={campos.inventario} onChange={handleCampoChange} className="input-field" />
+              </>
+            )}
+            {rol === 'cliente' && (
+              <>
+                <input type="text" name="identificacion" placeholder="Identificación" value={campos.identificacion} onChange={handleCampoChange} className="input-field" />
+                <input type="text" name="nombre" placeholder="Nombre" value={campos.nombre} onChange={handleCampoChange} className="input-field" />
+                <input type="text" name="apellido" placeholder="Apellido" value={campos.apellido} onChange={handleCampoChange} className="input-field" />
+                <input type="text" name="telefono" placeholder="Teléfono" value={campos.telefono} onChange={handleCampoChange} className="input-field" />
+                <input type="email" name="correo" placeholder="Correo" value={campos.correo} onChange={handleCampoChange} className="input-field" />
+                <input type="password" name="contraseña" placeholder="Contraseña" value={campos.contraseña} onChange={handleCampoChange} className="input-field" />
+              </>
+            )}
+          </>
+        ) : (
+          <>
+            <input type="email" name="email" placeholder="Correo" value={credenciales.email} onChange={handleCredencialesChange} className="input-field" />
+            <input type="password" name="password" placeholder="Contraseña" value={credenciales.password} onChange={handleCredencialesChange} className="input-field" />
+          </>
+        )}
+        <button type="submit" className="submit-button">
+          {registrando ? 'Registrar' : 'Iniciar sesión'}
         </button>
-      </div>
-    </>
+      </form>
+      <button onClick={() => setRegistrando(!registrando)} className="toggle-button">
+        {registrando ? '¿Ya tienes cuenta?' : '¿No tienes cuenta?'}
+      </button>
+    </div>
   );
 };
 

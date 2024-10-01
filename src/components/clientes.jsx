@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../firebase/firebaseConfig";
 import { collection, getDocs, query, where } from "firebase/firestore";
+import "../App.css"; // Importar el archivo de estilos
 
 const Clientes = () => {
   const [clientes, setClientes] = useState([]);
-  const [cargando, setCargando] = useState(true); // Rastrear el estado de carga
-  const [error, setError] = useState(null); // Rastrear errores
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchClientes = async () => {
@@ -13,8 +14,6 @@ const Clientes = () => {
         const usuariosCollection = collection(db, 'usuarios');
         const q = query(usuariosCollection, where("rol", "==", "cliente"));
         const querySnapshot = await getDocs(q);
-        console.log("Instantánea de consulta:", querySnapshot);
-        console.log("Número de documentos:", querySnapshot.docs.length);
         const clientes = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
@@ -38,10 +37,10 @@ const Clientes = () => {
   }
 
   return (
-    <div>
-      <h1>Clientes</h1>
+    <div className="clientes-container">
+      <h1 className="clientes-title">Clientes</h1>
       {clientes.length > 0 ? (
-        <table>
+        <table className="clientes-table">
           <thead>
             <tr>
               <th>Nombre</th>
