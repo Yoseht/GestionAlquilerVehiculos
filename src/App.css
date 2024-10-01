@@ -10,6 +10,12 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5)), url('https://preview.redd.it/4k-wallpaper-muscle-cars-on-track-v0-90d07spoa9sa1.jpg?width=1080&crop=smart&auto=webp&s=c2008edc75e25b0e5d352b0056866eba6ddf33c5');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100vw;
 }
 
 /* Encabezados */
@@ -80,13 +86,18 @@ input:focus, select:focus {
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
+  
   margin: 20px auto;
+  background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5)), url('https://preview.redd.it/4k-wallpaper-muscle-cars-on-track-v0-90d07spoa9sa1.jpg?width=1080&crop=smart&auto=webp&s=c2008edc75e25b0e5d352b0056866eba6ddf33c5');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100vw;
 }
 
 /* Estilo para el cuadro de bienvenida */
 .welcome-message {
-  background-color: #e0f7fa; /* Color de fondo suave y agradable */
   border-left: 6px solid #007bff; /* Bordes laterales para destacar */
   border-radius: 8px; /* Bordes redondeados */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para un efecto flotante */
@@ -94,7 +105,7 @@ input:focus, select:focus {
   margin-bottom: 20px;
   text-align: center;
   font-size: 1.5em;
-  color: #007bff; /* Color del texto en tono azul */
+  color: white;
 }
 
 /* Estilo para la lista de enlaces */
@@ -121,8 +132,10 @@ input:focus, select:focus {
 /* Estilo para el botón de cerrar sesión */
 .logout-button {
   background-color: #dc3545; /* Rojo para indicar cierre de sesión */
-  margin-top: 20px;
-  width: 100%; /* Ancho completo */
+  width: 30%; /* Ancho completo */
+  display: block;
+  margin: 20px auto;
+
 }
 
 .logout-button:hover {
@@ -322,7 +335,6 @@ strong {
   justify-content: center;
   height: 100vh;
   padding: 20px;
-  background-color: #f4f4f4;
 }
 
 h1 {
@@ -395,18 +407,17 @@ p {
   justify-content: center;
   height: 100vh;
   padding: 20px;
-  background-color: #f7f9fc;
 }
 
 .welcome-message h1 {
   font-size: 2.5rem;
-  color: #333;
+  color: #ffffff;
 }
 
 .welcome-message p {
   margin-bottom: 20px;
   font-size: 1.2rem;
-  color: #555;
+  color: #ffffff;
 }
 
 /* Formulario y enlaces */
@@ -451,12 +462,11 @@ p {
 /* Botón de cierre de sesión */
 .logout-button {
   padding: 10px 20px;
-  background-color: #dc3545;
+  background-color: transparent;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: auto;
 }
 
 .logout-button:hover {
