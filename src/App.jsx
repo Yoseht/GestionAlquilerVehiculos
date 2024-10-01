@@ -28,9 +28,6 @@ function App() {
     return unsuscribe;
   }, []);
 
-  const handleRentaClick = () => {
-    setShowRenta(true);
-  };
   return (
     <BrowserRouter>
       <Routes>
@@ -40,6 +37,7 @@ function App() {
         <Route path="admin/vehiculos" element={<InventarioVehiculos />} />
         <Route path="admin/usuarios" element={<Clientes />} />
         <Route path="admin/alquileres" element={<Alquileres/>}/>
+        
         <Route path="cliente/vehiculos" element={<VehiculosDisponibles/>}/>
         <Route path="cliente/alquileres" element={<MisRentas/>}/>
         <Route path="*" element={<div>No encontrado</div>} />

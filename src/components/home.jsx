@@ -34,9 +34,6 @@ const Home = () => {
       <button onClick={handleLogout}>Cerrar Sesion</button>
       <ul>
         <li>
-          <Link to="/cliente/perfil">Mi perfil</Link>
-        </li>
-        <li>
           <Link to="/cliente/alquileres">Mis alquileres</Link>
         </li>
         <li>

@@ -38,6 +38,7 @@ const handleLogout = async ()=>{
         <Route path='/admin/usuarios' Component={Clientes}/>
         <Route path='/admin/vehiculos' Component={InventarioVehiculos}/>
         <Route path='/admin/alquileres' Component={Alquileres}/>
+        
 
       </Routes>
     </div>

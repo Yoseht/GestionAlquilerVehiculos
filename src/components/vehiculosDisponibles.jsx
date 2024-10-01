@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { db } from '../firebase/firebaseConfig';
 import { collection, getDocs, doc, updateDoc, addDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
-import FormularioAlquiler from './FormularioAlquiler';
+import FormularioAlquiler from './formularioAlquiler';
 
 const auth = getAuth();
 
@@ -27,18 +27,14 @@ const VehiculosDisponibles = () => {
   };
 
   const handleRentaSubmit = (datosAlquiler) => {
-    if (!datosAlquiler.numeroLicencia || !datosAlquiler.lugarSolicitud) {
-      alert('Por favor, complete todos los campos');
-      return;
-    }
     const rentasCollection = collection(db, 'rentas');
     const renta = {
       usuario: auth.currentUser.uid,
       vehiculo: vehiculoSeleccionado.id,
-      fechaAlquiler: datosAlquiler.fechaAlquiler ? new Date(datosAlquiler.fechaAlquiler).toISOString() : '',
-      fechaDevolucion: datosAlquiler.fechaDevolucion ? new Date(datosAlquiler.fechaDevolucion).toISOString() : '',
+      fechaAlquiler: datosAlquiler.fechaAlquiler,
+      fechaDevolucion: datosAlquiler.fechaDevolucion,
       numeroLicencia: datosAlquiler.numeroLicencia,
-      lugarSolicitud: datosAlquiler.lugarSolicitud,
+      fechaInicio: new Date(),
     };
     addDoc(rentasCollection, renta).then(() => {
       const vehiculoRef = doc(db, 'vehiculos', vehiculoSeleccionado.id);
@@ -51,6 +47,7 @@ const VehiculosDisponibles = () => {
       });
     });
   };
+
   return (
     <div>
       <h1>Vehículos disponibles</h1>
@@ -74,9 +71,7 @@ const VehiculosDisponibles = () => {
           handleRenta={handleRentaSubmit}
         />
       )}
-      {showFormulario && (
-        <Alquileres />
-      )}
+      {mensaje && <p style={{ color: 'red' }}>{mensaje}</p>}
     </div>
   );
 };

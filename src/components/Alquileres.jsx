@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../firebase/firebaseConfig';
-import { collection, getDocs, onSnapshot } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 
 const Alquileres = () => {
   const [alquileres, setAlquileres] = useState([]);
 
   useEffect(() => {
-    const rentasCollection = collection(db, 'rentas');
-    const unsubscribe = onSnapshot(rentasCollection, (querySnapshot) => {
+    const alquileresCollection = collection(db, 'rentas');
+    const querySnapshot = getDocs(alquileresCollection);
+    querySnapshot.then((querySnapshot) => {
       const alquileres = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
       setAlquileres(alquileres);
     });
-    return unsubscribe;
   }, []);
 
   return (
@@ -20,15 +20,12 @@ const Alquileres = () => {
       <ul>
         {alquileres.map((alquiler) => (
           <li key={alquiler.id}>
-            <h2>
-              {alquiler.usuario} - {alquiler.vehiculo}
-            </h2>
-            <p>
-              Fecha de alquiler: {alquiler.fechaAlquiler} - Fecha de devolución: {alquiler.fechaDevolucion}
-            </p>
-            <p>
-              Número de licencia: {alquiler.numeroLicencia} - Lugar de solicitud: {alquiler.lugarSolicitud}
-            </p>
+            <h2>Alquiler {alquiler.id}</h2>
+            <p>Usuario: {alquiler.usuario}</p>
+            <p>Vehículo: {alquiler.vehiculo}</p>
+            <p>Fecha de alquiler: {alquiler.fechaAlquiler}</p>
+            <p>Fecha de devolución: {alquiler.fechaDevolucion}</p>
+            <p>Número de licencia: {alquiler.numeroLicencia}</p>
           </li>
         ))}
       </ul>
