@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { db } from '../firebase/firebaseConfig';
 import { collection, getDocs, doc, updateDoc, onSnapshot, getDoc, deleteDoc } from 'firebase/firestore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import '../App.css'; // Asegúrate de tener este archivo CSS
 
 const auth = getAuth();
 
@@ -55,36 +56,28 @@ const MisRentas = () => {
     setTimeout(() => {
       setMensaje('');
     }, 3000);
-
-    // Actualiza la lista de vehículos rentados
-    const unsubscribe = onSnapshot(rentasCollection, (querySnapshot) => {
-      const rentas = querySnapshot.docs.filter((doc) => doc.data().usuario === usuario.uid);
-      const vehiculosRentadosPromesas = rentas.map((renta) => {
-        const vehiculoRef = doc(db, 'vehiculos', renta.data().vehiculo);
-        return getDoc(vehiculoRef);
-      });
-      Promise.all(vehiculosRentadosPromesas).then((vehiculosRentadosDocs) => {
-        const vehiculosRentados = vehiculosRentadosDocs.map((doc) => ({ id: doc.id, ...doc.data() }));
-        setVehiculosRentados(vehiculosRentados);
-      });
-    });
-    return unsubscribe;
   };
 
   return (
-    <div>
-      <h1>Mis alquileres</h1>
-      <ul>
-        {vehiculosRentados.map((vehiculo) => (
-          <li key={vehiculo.id}>
-            <h2>{vehiculo.marca} {vehiculo.modelo}</h2>
-            <p>{vehiculo.descripcion}</p>
-            <img src={vehiculo.imagen} alt={vehiculo.modelo} style={{ width: '100px', height: '100px' }} />
-            <button onClick={() => handleDevolver(vehiculo)}>Devolver</button>
-          </li>
-        ))}
-      </ul>
-      {mensaje && <p style={{ color: 'red' }}>{mensaje}</p>}
+    <div className="mis-rentas-container">
+      <h1 className="titulo">Mis Alquileres</h1>
+      <div className="vehiculos-list">
+        {vehiculosRentados.length > 0 ? (
+          vehiculosRentados.map((vehiculo) => (
+            <div key={vehiculo.id} className="vehiculo-card">
+              <img src={vehiculo.imagen} alt={vehiculo.modelo} className="vehiculo-imagen" />
+              <div className="vehiculo-info">
+                <h2 className="vehiculo-nombre">{vehiculo.marca} {vehiculo.modelo}</h2>
+                <p className="vehiculo-descripcion">{vehiculo.descripcion}</p>
+                <button className="devolver-button" onClick={() => handleDevolver(vehiculo)}>Devolver</button>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p className="no-rentas">No tienes vehículos alquilados en este momento.</p>
+        )}
+      </div>
+      {mensaje && <p className="mensaje">{mensaje}</p>}
     </div>
   );
 };
