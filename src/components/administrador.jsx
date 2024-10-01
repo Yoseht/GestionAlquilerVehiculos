@@ -22,11 +22,11 @@ const Administrador = () => {
   return (
     <div className="admin-container">
       <div className="welcome-message">
-        <h1>Bienvenido, administrador</h1>
+        <h1>Bienvenido, Administrador</h1>
         <p>Esta es la página de administrador de la aplicación.</p>
       </div>
       <div className="admin-form">
-        <ul>
+        <ul className="admin-links">
           <li>
             <Link to="/admin/usuarios">Usuarios</Link>
           </li>

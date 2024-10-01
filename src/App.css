@@ -40,25 +40,28 @@ p {
   flex-direction: column;
 }
 
+/* Estilos para etiquetas */
 label {
   margin-bottom: 10px;
 }
 
-input {
+/* Estilo de los inputs */
+input, select {
   padding: 10px;
   margin-bottom: 20px;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
 
-input:focus {
+/* Estilo al enfocar los inputs */
+input:focus, select:focus {
   border-color: #007bff;
   outline: none;
 }
 
 /* Botones */
 .submit-button, button {
-  background-color: #007bff;
+  background-color: #007bff; /* Azul */
   color: #fff;
   padding: 10px;
   border: none;
@@ -68,7 +71,7 @@ input:focus {
 }
 
 .submit-button:hover, button:hover {
-  background-color: #0056b3;
+  background-color: #0056b3; /* Azul más oscuro */
 }
 
 /* Estilo para el componente Administrador */
@@ -77,43 +80,53 @@ input:focus {
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 20px auto;
 }
 
-/* Estilos para la lista de enlaces */
-.admin-container ul {
+/* Estilo para el cuadro de bienvenida */
+.welcome-message {
+  background-color: #e0f7fa; /* Color de fondo suave y agradable */
+  border-left: 6px solid #007bff; /* Bordes laterales para destacar */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para un efecto flotante */
+  padding: 20px; /* Espaciado interno */
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 1.5em;
+  color: #007bff; /* Color del texto en tono azul */
+}
+
+/* Estilo para la lista de enlaces */
+.admin-links {
   list-style-type: none;
   padding: 0;
+  text-align: center; /* Centrar los enlaces */
 }
 
-.admin-container li {
-  margin: 10px 0;
+.admin-links li {
+  margin: 15px 0; /* Espaciado entre los enlaces */
 }
 
-.admin-container a {
+.admin-links a {
   text-decoration: none;
-  color: #007bff;
+  color: #007bff; /* Color azul para los enlaces */
+  font-size: 1.2em; /* Tamaño de fuente de los enlaces */
 }
 
-.admin-container a:hover {
-  text-decoration: underline;
+.admin-links a:hover {
+  text-decoration: underline; /* Subrayar al pasar el ratón */
 }
 
 /* Estilo para el botón de cerrar sesión */
 .logout-button {
   background-color: #dc3545; /* Rojo para indicar cierre de sesión */
   margin-top: 20px;
+  width: 100%; /* Ancho completo */
 }
 
 .logout-button:hover {
-  background-color: #c82333;
-}
-
-/* Estilo para el mensaje de bienvenida */
-.welcome-message {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 1.2em;
-  color: #333;
+  background-color: #c82333; /* Rojo más oscuro en hover */
 }
 
 /* Ajustes de diseño responsivo */
