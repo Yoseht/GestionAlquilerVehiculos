@@ -3,6 +3,7 @@ import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } f
 import { db } from '../firebase/firebaseConfig';
 import { collection, addDoc, getDocs } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
+import '../app.css';
 
 const auth = getAuth();
 
@@ -137,7 +138,7 @@ const Login = () => {
                   <input
                     type="text"
                     name="telefono"
-                    placeholder="Telefono"
+                    placeholder="Teléfono"
                     value={campos.telefono}
                     onChange={handleCampoChange}
                   />
