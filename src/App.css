@@ -258,7 +258,13 @@ strong {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: #f0f0f0;
+  background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5)), url('https://preview.redd.it/4k-wallpaper-muscle-cars-on-track-v0-90d07spoa9sa1.jpg?width=1080&crop=smart&auto=webp&s=c2008edc75e25b0e5d352b0056866eba6ddf33c5');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100vw;
+
   padding: 20px;
 }
 
