@@ -8,16 +8,6 @@ import './administrador.css'; // Importa los estilos adecuados
 
 const auth = getAuth();
 const Administrador = () => {
-  const navigate = useNavigate();
-
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      navigate('/');
-    } catch (error) {
-      console.error('Error al cerrar sesión: ', error);
-    }
-  };
 
   return (
     <div className="admin-container">
@@ -29,7 +19,7 @@ const Administrador = () => {
           <Link to="/admin/vehiculos" className="admin-button">Gestionar Vehículos</Link>
           <Link to="/admin/alquileres" className="admin-button">Gestionar Alquileres</Link>
         </div>
-        <button className="logout-button" onClick={handleLogout}>Cerrar sesión</button>
+        <button className="logout-button" onClick={signOut}>Cerrar sesión</button>
       </form>
       <Routes>
         <Route path='/admin/usuarios' element={<Clientes />} />
