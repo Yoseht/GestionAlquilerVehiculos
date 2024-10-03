@@ -1,9 +1,10 @@
+
 import React, { useState } from "react";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { db } from '../firebase/firebaseConfig';
 import { collection, addDoc, getDocs } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
-import '../App.css';  // Cambié el archivo de estilos para esta interfaz específica
+import './login.css';  // Cambié el archivo de estilos para esta interfaz específica
 
 const auth = getAuth();
 
@@ -101,12 +102,13 @@ const Login = () => {
         <button type="submit" className="submit-button">
           {registrando ? 'Registrar' : 'Iniciar sesión'}
         </button>
+        <button onClick={() => setRegistrando(!registrando)} className="toggle-button">
+          {registrando ? '¿Ya tienes cuenta?' : '¿No tienes cuenta?'}
+        </button>
       </form>
-      <button onClick={() => setRegistrando(!registrando)} className="toggle-button">
-        {registrando ? '¿Ya tienes cuenta?' : '¿No tienes cuenta?'}
-      </button>
     </div>
   );
+  
 };
 
 export default Login;

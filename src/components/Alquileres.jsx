@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../firebase/firebaseConfig';
 import { collection, getDocs } from 'firebase/firestore';
-import '../App.css'; // Archivo de estilos
+import './Alquileres.css'; // Asegúrate de tener este archivo CSS
 
 const Alquileres = () => {
   const [alquileres, setAlquileres] = useState([]);
@@ -23,7 +23,7 @@ const Alquileres = () => {
       <div className="lista-alquileres">
         {alquileres.map((alquiler) => (
           <div className="tarjeta-alquiler" key={alquiler.id}>
-            <h2>Alquiler ID: {alquiler.id}</h2>
+            <h2 className="alquiler-id">Alquiler ID: {alquiler.id}</h2>
             <p><strong>Usuario:</strong> {alquiler.usuario}</p>
             <p><strong>Vehículo:</strong> {alquiler.vehiculo}</p>
             <p><strong>Fecha de alquiler:</strong> {new Date(alquiler.fechaAlquiler).toLocaleDateString()}</p>

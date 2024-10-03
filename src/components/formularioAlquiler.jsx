@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../App.css'; // Asegúrate de importar el archivo CSS
+
 
 const FormularioAlquiler = ({ vehiculo, handleRenta }) => {
   const [numeroLicencia, setNumeroLicencia] = useState('');

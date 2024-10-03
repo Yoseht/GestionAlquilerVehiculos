@@ -1,0 +1,182 @@
+/* inventarioVehiculos.css */
+
+/* Estilo global */
+body {
+    background-color: #000; /* Fondo negro */
+    color: #FFD700; /* Texto dorado */
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    height: 100%; /* Asegura que ocupe toda la altura */
+    min-height: 100vh;
+}
+
+html {
+    height: 100%; /* También asegura que ocupe toda la altura */
+}
+
+.inventario-container {
+    width: 100vw; /* Ocupa todo el ancho de la ventana */
+    min-height: 100vh; /* Asegura que la altura mínima sea la del viewport */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra verticalmente */
+    align-items: center; /* Centra horizontalmente */
+    padding: 20px;
+    background-image: linear-gradient(
+        rgba(0, 0, 0, 1), 
+        rgba(0, 0, 0, 0.5)
+    ), 
+    url('https://preview.redd.it/4k-wallpaper-muscle-cars-on-track-v0-90d07spoa9sa1.jpg?width=1080&crop=smart&auto=webp&s=c2008edc75e25b0e5d352b0056866eba6ddf33c5');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* La imagen se queda fija al hacer scroll */
+}
+
+.inventario-title {
+    font-size: 2.5rem;
+    color: #FFD700;
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #FFD700;
+    padding-bottom: 10px;
+}
+
+.inventario-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px; /* Asegura que no se expanda demasiado */
+    justify-content: center; /* Centrado vertical adicional */
+    align-items: center; /* Asegura el centrado horizontal del contenido */
+}
+
+.tabla-vehiculos {
+    overflow-x: auto;
+}
+
+.vehiculos-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #FFD700;
+}
+
+.vehiculos-table th, .vehiculos-table td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #FFD700;
+}
+
+.vehiculos-table th {
+    background-color: #333;
+    color: #FFD700;
+    font-size: 1.2rem;
+}
+
+.vehiculos-table td {
+    background-color: #111;
+}
+
+.vehiculo-imagen {
+    width: 100%; /* Ajusta el ancho al 100% del contenedor */
+    height: auto; /* Mantiene la relación de aspecto */
+    border: 1px solid #FFD700;
+    object-fit: cover; /* Asegura que la imagen cubra el área asignada sin distorsionarse */
+}
+
+/* Botones */
+button {
+    background-color: #FFD700;
+    color: #000;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #b8860b; /* Dorado más oscuro */
+}
+
+.editar-btn {
+    background-color: #FFD700;
+}
+
+.eliminar-btn {
+    background-color: #FF6347; /* Rojo para eliminar */
+}
+
+.eliminar-btn:hover {
+    background-color: #cc2900; /* Rojo oscuro */
+}
+
+/* Formulario */
+.form-container {
+    background-color: #222;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 600px;
+    color: #FFD700;
+}
+
+.form-container h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.vehiculo-form label {
+    display: block;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.vehiculo-form input, .vehiculo-form select, .vehiculo-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    background-color: #333;
+    border: 1px solid #FFD700;
+    color: #FFD700;
+    border-radius: 5px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.agregar-vehiculo-btn, .subir-imagen-btn {
+    width: 48%;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .form-container, .vehiculos-table {
+        width: 100%;
+    }
+
+    .form-buttons {
+        flex-direction: column;
+    }
+
+    .agregar-vehiculo-btn, .subir-imagen-btn {
+        width: 100%;
+    }
+
+    .vehiculo-imagen {
+        max-width: 80px; /* Cambiado para que el max-width no interfiera con el nuevo estilo */
+        height: auto; /* Asegura que mantenga la proporción de la imagen */
+    }
+}

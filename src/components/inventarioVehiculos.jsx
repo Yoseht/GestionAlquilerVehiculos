@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { db } from "../firebase/firebaseConfig";
 import { addDoc, collection, doc, getDocs, deleteDoc, updateDoc } from "firebase/firestore";
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
+import './inventarioVehiculos.css';  // Asegúrate de que tu archivo CSS esté vinculado correctamente
 
 const storage = getStorage();
 
@@ -11,7 +12,7 @@ const InventarioVehiculos = () => {
   const [modelo, setModelo] = useState('');
   const [año, setAño] = useState('');
   const [descripcion, setDescripcion] = useState('');
-  const [tamaño, setTamaño] = useState('pequeño'); // Nueva propiedad de tamaño
+  const [tamaño, setTamaño] = useState('pequeño');
   const [imagen, setImagen] = useState(null);
   const [imagenUrl, setImagenUrl] = useState('');
   const [vehiculoEditar, setVehiculoEditar] = useState(null);
@@ -34,7 +35,7 @@ const InventarioVehiculos = () => {
         modelo,
         año,
         descripcion,
-        tamaño, // Guardar tamaño
+        tamaño,
         imagen: imagenUrl,
         disponible: true,
       });
@@ -112,61 +113,86 @@ const InventarioVehiculos = () => {
   });
 
   return (
-    <div>
-      <h1>Inventario De Vehículos</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Marca</th>
-            <th>Modelo</th>
-            <th>Año</th>
-            <th>Descripción</th>
-            <th>Tamaño</th> {/* Mostrar tamaño */}
-            <th>Imagen</th>
-            <th>Editar</th>
-            <th>Eliminar</th>
-          </tr>
-        </thead>
-        <tbody>
-          {vehiculosOrdenados.map((vehiculo) => (
-            <tr key={vehiculo.id}>
-              <td>{vehiculo.marca}</td>
-              <td>{vehiculo.modelo}</td>
-              <td>{vehiculo.año}</td>
-              <td>{vehiculo.descripcion}</td>
-              <td>{vehiculo.tamaño}</td> {/* Columna de tamaño */}
-              <td><img src={vehiculo.imagen} alt={vehiculo.modelo} /></td>
-              <td><button type="button" onClick={() => handleEditarVehiculo(vehiculo)}>Editar</button></td>
-              <td><button type="button" onClick={() => handleEliminarVehiculo(vehiculo)}>Eliminar</button></td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="inventario-container">
+      <h1 className="inventario-title">Inventario De Vehículos</h1>
 
-      {/* Formulario para agregar y editar */}
-      <h2>{vehiculoEditar ? "Editar Vehículo" : "Agregar Vehículo"}</h2>
-      <form>
-        <label>Marca: <input type="text" value={marca} onChange={(e) => setMarca(e.target.value)} /></label>
-        <label>Modelo: <input type="text" value={modelo} onChange={(e) => setModelo(e.target.value)} /></label>
-        <label>Año: <input type="number" value={año} onChange={(e) => setAño(e.target.value)} /></label>
-        <label>Descripción: <textarea value={descripcion} onChange={(e) => setDescripcion(e.target.value)} /></label>
-        <label>
-          Tamaño:
-          <select value={tamaño} onChange={(e) => setTamaño(e.target.value)}>
-            <option value="pequeño">Pequeño</option>
-            <option value="mediano">Mediano</option>
-            <option value="grande">Grande</option>
-          </select>
-        </label>
-        <label>Imagen: <input type="file" accept="image/*" onChange={(e) => setImagen(e.target.files[0])} /></label>
-        <button type="button" onClick={handleSubirImagen}>Subir Imagen</button>
-        <button type="button" onClick={vehiculoEditar ? handleGuardarEdicion : handleAgregarVehiculo}>
-          {vehiculoEditar ? "Guardar Edición" : "Agregar Vehículo"}
-        </button>
-      </form>
+      <div className="inventario-layout">
+        {/* Tabla de vehículos */}
+        <div className="tabla-vehiculos">
+          <table className="vehiculos-table">
+            <thead>
+              <tr>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Año</th>
+                <th>Descripción</th>
+                <th>Tamaño</th>
+                <th>Imagen</th>
+                <th>Editar</th>
+                <th>Eliminar</th>
+              </tr>
+            </thead>
+            <tbody>
+              {vehiculosOrdenados.map((vehiculo) => (
+                <tr key={vehiculo.id}>
+                  <td>{vehiculo.marca}</td>
+                  <td>{vehiculo.modelo}</td>
+                  <td>{vehiculo.año}</td>
+                  <td>{vehiculo.descripcion}</td>
+                  <td>{vehiculo.tamaño}</td>
+                  <td>
+                    <img src={vehiculo.imagen} alt={vehiculo.modelo} className="vehiculo-imagen" />
+                  </td>
+                  <td>
+                    <button className="editar-btn" onClick={() => handleEditarVehiculo(vehiculo)}>Editar</button>
+                  </td>
+                  <td>
+                    <button className="eliminar-btn" onClick={() => handleEliminarVehiculo(vehiculo)}>Eliminar</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Formulario de agregar y editar */}
+        <div className="form-container">
+          <h2>{vehiculoEditar ? "Editar Vehículo" : "Agregar Vehículo"}</h2>
+          <form className="vehiculo-form">
+            <label>Marca: 
+              <input type="text" value={marca} onChange={(e) => setMarca(e.target.value)} />
+            </label>
+            <label>Modelo: 
+              <input type="text" value={modelo} onChange={(e) => setModelo(e.target.value)} />
+            </label>
+            <label>Año: 
+              <input type="number" value={año} onChange={(e) => setAño(e.target.value)} />
+            </label>
+            <label>Descripción: 
+              <textarea value={descripcion} onChange={(e) => setDescripcion(e.target.value)} />
+            </label>
+            <label>
+              Tamaño:
+              <select value={tamaño} onChange={(e) => setTamaño(e.target.value)}>
+                <option value="pequeño">Pequeño</option>
+                <option value="mediano">Mediano</option>
+                <option value="grande">Grande</option>
+              </select>
+            </label>
+            <label>Imagen: 
+              <input type="file" accept="image/*" onChange={(e) => setImagen(e.target.files[0])} />
+            </label>
+            <div className="form-buttons">
+              <button type="button" className="subir-imagen-btn" onClick={handleSubirImagen}>Subir Imagen</button>
+              <button type="button" className="agregar-vehiculo-btn" onClick={vehiculoEditar ? handleGuardarEdicion : handleAgregarVehiculo}>
+                {vehiculoEditar ? "Guardar Edición" : "Agregar Vehículo"}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };
 
 export default InventarioVehiculos;
-

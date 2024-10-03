@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../firebase/firebaseConfig";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import "../App.css"; // Importar el archivo de estilos
+import './clientes.css';  // Asegúrate de que el archivo CSS está vinculado correctamente
 
 const Clientes = () => {
   const [clientes, setClientes] = useState([]);
@@ -29,16 +29,16 @@ const Clientes = () => {
   }, []);
 
   if (cargando) {
-    return <p>Cargando...</p>;
+    return <div className="loading">Cargando...</div>;
   }
 
   if (error) {
-    return <p>Error al cargar clientes: {error.message}</p>;
+    return <div className="error-message">Error al cargar clientes: {error.message}</div>;
   }
 
   return (
     <div className="clientes-container">
-      <h1 className="clientes-title">Clientes</h1>
+      <h1 className="clientes-title">Lista de Clientes</h1>
       {clientes.length > 0 ? (
         <table className="clientes-table">
           <thead>
@@ -61,7 +61,7 @@ const Clientes = () => {
           </tbody>
         </table>
       ) : (
-        <p>No hay clientes para mostrar.</p>
+        <p className="no-clientes-message">No hay clientes para mostrar.</p>
       )}
     </div>
   );

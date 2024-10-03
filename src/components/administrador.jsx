@@ -4,7 +4,7 @@ import { Link, Route, useNavigate, Routes } from 'react-router-dom';
 import Clientes from './clientes';
 import InventarioVehiculos from './inventarioVehiculos';
 import Alquileres from './Alquileres';
-import '../app.css'; // Asegúrate de importar el CSS
+import './administrador.css'; // Importa los estilos adecuados
 
 const auth = getAuth();
 const Administrador = () => {
@@ -21,24 +21,16 @@ const Administrador = () => {
 
   return (
     <div className="admin-container">
-      <div className="welcome-message">
-        <h1>Bienvenido, Administrador</h1>
-        <p>Esta es la página de administrador de la aplicación.</p>
-      </div>
-      <div className="admin-form">
-        <ul className="admin-links">
-          <li>
-            <Link to="/admin/usuarios">Usuarios</Link>
-          </li>
-          <li>
-            <Link to="/admin/vehiculos">Vehículos</Link>
-          </li>
-          <li>
-            <Link to="/admin/alquileres">Alquileres</Link>
-          </li>
-        </ul>
+      <form className="admin-form">
+        <h2 className="welcome-title">Bienvenido, Administrador</h2>
+        <p className="welcome-message">Administra usuarios, vehículos y alquileres de forma eficiente.</p>
+        <div className="admin-buttons">
+          <Link to="/admin/usuarios" className="admin-button">Gestionar Usuarios</Link>
+          <Link to="/admin/vehiculos" className="admin-button">Gestionar Vehículos</Link>
+          <Link to="/admin/alquileres" className="admin-button">Gestionar Alquileres</Link>
+        </div>
         <button className="logout-button" onClick={handleLogout}>Cerrar sesión</button>
-      </div>
+      </form>
       <Routes>
         <Route path='/admin/usuarios' element={<Clientes />} />
         <Route path='/admin/vehiculos' element={<InventarioVehiculos />} />

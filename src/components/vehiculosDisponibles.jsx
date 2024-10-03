@@ -3,7 +3,7 @@ import { db } from '../firebase/firebaseConfig';
 import { collection, getDocs, doc, updateDoc, addDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import FormularioAlquiler from './formularioAlquiler';
-import '../App.css'; // Asegúrate de tener este archivo CSS
+import './vehiculosDisponibles.css';
 import { Link } from 'react-router-dom';
 
 const auth = getAuth();

@@ -1,0 +1,141 @@
+/* Contenedor principal */
+.mis-rentas-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    min-height: 100vh;
+    background-color: #f0f2f5;
+    background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5)), url('https://preview.redd.it/4k-wallpaper-muscle-cars-on-track-v0-90d07spoa9sa1.jpg?width=1080&crop=smart&auto=webp&s=c2008edc75e25b0e5d352b0056866eba6ddf33c5');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Título principal */
+.titulo {
+    font-size: 40px;
+    font-weight: 700;
+    color: #e5c100; /* Dorado */
+    margin-bottom: 40px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Lista de vehículos con diseño de tarjetas */
+.vehiculos-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    max-width: 1200px;
+    width: 100%;
+}
+
+/* Tarjeta de vehículo */
+.vehiculo-card {
+    background-color: #111; /* Negro */
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+    width: 320px;
+    border: 2px solid #e5c100; /* Borde dorado */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.vehiculo-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.85);
+    border-color: #b29400; /* Borde dorado más oscuro al pasar el mouse */
+}
+
+/* Imagen del vehículo */
+.vehiculo-imagen {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-bottom: 2px solid #f0f2f5;
+}
+
+/* Información del vehículo */
+.vehiculo-info {
+    padding: 20px;
+    text-align: left;
+}
+
+.vehiculo-nombre {
+    font-size: 22px;
+    color: #e5c100; /* Dorado */
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.vehiculo-descripcion {
+    font-size: 16px;
+    color: #ccc; /* Gris claro */
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+/* Botón de devolver */
+.devolver-button {
+    background-color: #e5c100; /* Dorado */
+    color: #111; /* Negro */
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.devolver-button:hover {
+    background-color: #b29400; /* Dorado más oscuro */
+    transform: scale(1.02);
+}
+
+/* Mensaje de devolución */
+.mensaje {
+    background-color: #e5c100; /* Dorado */
+    color: #111; /* Negro */
+    padding: 15px 25px;
+    border-radius: 8px;
+    margin-top: 30px;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+    transition: opacity 0.3s ease;
+}
+
+/* Mensaje de no rentas */
+.no-rentas {
+    font-size: 20px;
+    color: #999;
+    text-align: center;
+    margin-top: 40px;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .vehiculos-list {
+        gap: 20px;
+    }
+
+    .vehiculo-card {
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .devolver-button {
+        font-size: 14px;
+    }
+
+    .mensaje {
+        font-size: 16px;
+    }
+}
