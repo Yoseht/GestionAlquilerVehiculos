@@ -3,7 +3,8 @@ import { db, auth } from "../firebase/firebaseConfig";
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { Link, useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
-import '../App.css'; // Asegúrate de importar tu archivo CSS
+import './home.css';
+
 
 const Home = () => {
   const [vehiculos, setVehiculos] = useState([]);
