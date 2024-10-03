@@ -339,3 +339,115 @@ textarea {
         height: auto; /* Asegura que mantenga la proporción de la imagen */
     }
 }
+
+
+/* formularioAlquiler.css */
+
+/* Estilo global */
+body {
+    background-color: #000; /* Fondo negro */
+    color: #FFD700; /* Texto dorado */
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    height: 100%; /* Asegura que ocupe toda la altura */
+    min-height: 100vh;
+}
+
+html {
+    height: 100%; /* También asegura que ocupe toda la altura */
+}
+
+/* Contenedor del formulario */
+.formulario-alquiler {
+    background-color: #222; /* Fondo oscuro para el formulario */
+    padding: 30px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 600px; /* Ancho máximo */
+    color: #FFD700; /* Texto dorado */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Sombra para profundidad */
+    margin: 20px auto; /* Centrando el formulario */
+}
+
+/* Título del formulario */
+.formulario-alquiler h2 {
+    font-size: 1.8rem; /* Tamaño del título */
+    margin-bottom: 20px;
+    text-align: center; /* Centrar el título */
+    color: #FFD700; /* Texto dorado */
+}
+
+/* Estilo para las etiquetas del formulario */
+.formulario-alquiler label {
+    display: block; /* Para que cada etiqueta esté en una nueva línea */
+    margin-bottom: 10px; /* Espacio debajo de cada etiqueta */
+    font-size: 1.1rem; /* Tamaño de fuente */
+}
+
+/* Estilo de los campos del formulario */
+.formulario-alquiler input,
+.formulario-alquiler select,
+.formulario-alquiler textarea {
+    width: 100%; /* Ancho completo */
+    padding: 12px; /* Espaciado interno */
+    margin-top: 5px; /* Margen superior */
+    background-color: #333; /* Fondo de los campos */
+    border: 1px solid #FFD700; /* Borde dorado */
+    color: #FFD700; /* Color de texto */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+/* Ajuste del tamaño del textarea */
+textarea {
+    resize: vertical; /* Permitir cambio de tamaño vertical */
+}
+
+/* Contenedor para botones */
+.formulario-alquiler .form-buttons {
+    display: flex; /* Uso de flexbox para botones */
+    justify-content: space-between; /* Espacio entre botones */
+    margin-top: 20px; /* Margen superior */
+}
+
+/* Estilo de los botones */
+.formulario-alquiler .btn {
+    background-color: #FFD700; /* Dorado */
+    color: #000; /* Texto negro */
+    border: none;
+    padding: 10px 15px; /* Espaciado interno */
+    cursor: pointer; /* Cambiar cursor a puntero */
+    font-size: 1rem; /* Tamaño de fuente */
+    border-radius: 5px; /* Bordes redondeados */
+    transition: background-color 0.3s ease; /* Transición para hover */
+}
+
+.formulario-alquiler .btn:hover {
+    background-color: #b8860b; /* Dorado más oscuro al pasar el mouse */
+}
+
+/* Estilo para el botón de cancelar o volver */
+.formulario-alquiler .btn-cancelar {
+    background-color: #FF6347; /* Rojo para cancelar */
+}
+
+.formulario-alquiler .btn-cancelar:hover {
+    background-color: #cc2900; /* Rojo oscuro al pasar el mouse */
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .formulario-alquiler {
+        padding: 20px; /* Menos espaciado en pantallas pequeñas */
+    }
+
+    .formulario-alquiler h2 {
+        font-size: 1.5rem; /* Tamaño del título más pequeño */
+    }
+
+    .formulario-alquiler .btn {
+        font-size: 0.9rem; /* Tamaño de fuente de botones más pequeño */
+        padding: 8px 10px; /* Espaciado interno más pequeño */
+    }
+}
