@@ -1,0 +1,56 @@
+
+/* bienvenida.css */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #e0f7fa; /* Color de fondo suave */
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 20px;
+    text-align: center;
+    background-image: linear-gradient(to bottom right, #fff, #e0f7fa); /* Degradado suave */
+    border-radius: 15px; /* Bordes redondeados */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    color: #00796b; /* Color verde oscuro */
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Sombra de texto */
+  }
+  
+  p {
+    font-size: 1.2rem;
+    color: #004d40; /* Color verde más oscuro */
+    margin: 10px 0;
+    max-width: 600px; /* Ancho máximo para las descripciones */
+  }
+  
+  .buttons {
+    margin-top: 30px;
+  }
+  
+  .button {
+    display: inline-block;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    color: #fff; /* Color de texto blanco */
+    background-color: #00796b; /* Color de fondo verde oscuro */
+    border: none;
+    border-radius: 5px; /* Bordes redondeados */
+    text-decoration: none; /* Sin subrayado */
+    transition: background-color 0.3s ease, transform 0.2s; /* Transiciones suaves */
+  }
+  
+  .button:hover {
+    background-color: #004d40; /* Color más oscuro al pasar el mouse */
+    transform: translateY(-2px); /* Elevación al pasar el mouse */
+  }
+  
